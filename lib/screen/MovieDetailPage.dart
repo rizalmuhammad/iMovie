@@ -20,7 +20,7 @@ class MovieDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return new Scaffold(
       body: new FutureBuilder<MovieDetail>(
         future: getMovieDetail(id),
         builder: (context, snapshot) {
@@ -34,13 +34,13 @@ class MovieDetailPage extends StatelessWidget {
             );
           } else if (snapshot.hasError) {
             return new Center(
-              child: new Text("${snapshot.hasError}"),
+              child: new Text("${snapshot.error}"),
             );
           } else {
             MovieDetail movies = snapshot.data;
             return new SingleChildScrollView(
               child: new Column(
-                children: <Widget>[
+                children: [
                   new MovieDetailHeader(movies),
                   new Padding(
                     padding: const EdgeInsets.all(0.0),
@@ -79,13 +79,13 @@ class MovieDetailPage extends StatelessWidget {
       MovieDetail movieDetail = createDetailList(responseJson);
       return movieDetail;
     } catch (exception) {
-      print(exception.toString());
+      print("Ini errornya "  + exception.toString());
     }
     return null;
   }
 
   MovieDetail createDetailList(data) {
-    List<String> genreList = new List();
+    List<String> genresList = new List();
     List<ProductionCompanies> productionCompanyList = new List();
 
     var id = data["id"];
@@ -102,13 +102,13 @@ class MovieDetailPage extends StatelessWidget {
     var genres = data["genres"];
     for (var i = 0; i < genres.length; i++) {
       String name = genres[i]["name"];
-      genreList.add(name);
+      genresList.add(name);
     }
     var overview = data["overview"];
     var posterPath = data["poster_path"];
-    var backdropPath = data["backdor_path"];
+    var backdropPath = data["backdrop_path"];
     var voteAverage = data["vote_average"];
-    MovieDetail detail = MovieDetail(id, title, genres, overview, posterPath,
+    MovieDetail detail = MovieDetail(id, title, genresList, overview, posterPath,
         backdropPath, voteAverage, productionCompanyList);
     return detail;
   }

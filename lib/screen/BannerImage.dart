@@ -28,8 +28,8 @@ class ArcClipper extends CustomClipper<Path> {
     var firstPoint = new Offset(size.width / 2, size.height);
     path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy, firstPoint.dx, firstPoint.dy);
 
-    var secondControlPoint = new Offset(size.width / 4, size.height);
-    var secondPoint = new Offset(size.width / 2, size.height);
+    var secondControlPoint = new Offset(size.width - (size.width / 4), size.height);
+    var secondPoint = new Offset(size.width, size.height - 30);
     path.quadraticBezierTo(secondControlPoint.dx, secondControlPoint.dy, secondPoint.dx, secondPoint.dy);
 
     path.lineTo(size.width, 0.0);
@@ -39,7 +39,5 @@ class ArcClipper extends CustomClipper<Path> {
   }
 
   @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) {
-    return false;
-  }
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
